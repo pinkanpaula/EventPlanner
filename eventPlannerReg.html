@@ -1,0 +1,155 @@
+<html>
+  <head>
+    <title></title>
+    <link rel="stylesheet" href="eventPlanner.css"/>
+    <body>       
+      <div class="mp-title">
+	<div class="mp-title-header">Registration</div>
+      </div>
+      <form class="mp-form">
+	<div class="mp-column">
+		<label for="first_name">First Name</label>
+		<input type="text" required id="event_name" name="event_name" placeholder="John">
+		<label for="last_name">Last Name</label>
+		<input type="text" required id="event_type" name="event_type" placeholder="Doe">
+		<label for="Day">Birth date</label>
+		<input type="date" required id="eventDate" name="date" onchange="changeTDesc();">
+                <label for="eventLoc">Address</label>
+		<input type="text" required id="eventLoc" placeholder="Upper East Avenue">
+		<div id="map"></div>   
+                <label for="email">Email</label>
+		<input type="email" required id="email" name="email" placeholder="jon@doe.com" onchange="validateEmail3();">
+		 <div id="err1" class="mp-form-error"></div>  
+                <label for="firstPassword">Password</label>
+		<input type="password" required id="firstPassword" name="email" placeholder="" onchange="validatePassword1();">
+		 <div id="err2" class="mp-form-error"></div>
+                <label for="firstPassword">Repeat Password</label>
+		<input type="password" required id="secondPassword" name="email" placeholder="" onchange="validatePassword2();">
+		  <div id="err3" class="mp-form-error"></div> 
+	</div>
+	<div class="cbp-mc-submit-wrap"><input id="register" class="cbp-mc-submit"  value="Register" /></div>
+        <div class="cbp-mc-submit-wrap"><input id="cancel" class="cbp-mc-submit" onclick="window.location.href='eventPlanner.html'" value="Create event" /></div>	
+        <div id="err" class="mp-form-error"></div>
+	<div id="popup">
+    </form>
+    <script>
+     var register=document.querySelector('#register');
+     var email=document.querySelector('#email');
+     var firstPassword=document.querySelector('#firstPassword');
+     var secondPassword=document.querySelector('#secondPassword');
+
+     
+     var passwordRgx=/^(?=.{8,})(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*\W).*$/g;
+     var emailRegex=/([^@]+)@([^\.]+)\.([^\.]+)/g;
+     var numRegex=/([0-9])/g;
+     
+     register.onclick=function(){
+       displaySuccess();
+       return false;
+     };
+     
+        function validatePassword1(){                
+               if(passwordRgx.test(firstPassword.value)){
+                   firstPassword.setCustomValidity("");                  
+               }
+               else{
+                   firstPassword.setCustomValidity("password format incorrect");
+               }
+                displayErr();
+               
+        }
+        
+        function validatePassword2(){
+              if(firstPassword.value===secondPassword.value){
+                   secondPassword.setCustomValidity("");
+               }
+               else{
+                   secondPassword.setCustomValidity("second password must match the first one");
+               }
+               displayErr();
+        }
+        
+        function validateEmail3(){
+              if(emailRegex.test(email.value)){
+                   email.setCustomValidity("");                  
+               }
+               else{
+                   email.setCustomValidity("email format incorrect");
+               }
+                displayErr();
+        }
+     
+     function displayErr(){
+        document.querySelector('#err1').innerHTML=email.validationMessage;
+	document.querySelector('#err2').innerHTML=firstPassword.validationMessage;
+	document.querySelector('#err3').innerHTML=secondPassword.validationMessage;
+      }
+      
+     function displaySuccess(){
+        document.querySelector('#popup').innerHTML="<div class='toolbar'><a class='close' onclick='closePopup()'>close</a></div><p><div align='center'>Your registration details are submitted, you will receive our email shortly</div>";	
+        document.querySelector('#popup').style.display="inline-block";
+	document.querySelector('#popupclose').innerHTML="X";
+      }
+      
+      function closePopup(){
+	document.querySelector('#popup').style.display='none';
+        document.querySelector('#popupclose').style.display='none';    
+      }  
+      
+    function initMap() {
+        var mapDiv = document.getElementById('map');
+        var map = new google.maps.Map(mapDiv, {
+          center: {lat: 44.540, lng: -78.546},
+          zoom: 8,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        });
+        var searchBox=new google.maps.places.SearchBox(eventLoc);
+        map.controls[google.maps.ControlPosition.TOP_LEFT].push(eventLoc);       
+        // Bias the SearchBox results towards current map's viewport.
+        map.addListener('bounds_changed', function() {
+        searchBox.setBounds(map.getBounds());        
+        });
+        var markers = [];
+
+    searchBox.addListener('places_changed', function() {
+    var places = searchBox.getPlaces();
+    if (places.length == 0) {
+      return;
+    }
+    markers.forEach(function(marker) {
+      marker.setMap(null);
+    });
+    markers = [];
+
+    var bounds = new google.maps.LatLngBounds();
+    places.forEach(function(place) {
+      var icon = {
+        url: place.icon,
+        size: new google.maps.Size(71, 71),
+        origin: new google.maps.Point(0, 0),
+        anchor: new google.maps.Point(17, 34),
+        scaledSize: new google.maps.Size(25, 25)
+      };
+      markers.push(new google.maps.Marker({
+        map: map,
+        icon: icon,
+        title: place.name,
+        position: place.geometry.location
+      }));
+      if (place.geometry.viewport) {
+        // Only geocodes have viewport.
+        bounds.union(place.geometry.viewport);
+      } else {
+        bounds.extend(place.geometry.location);
+      }
+    });
+      map.fitBounds(bounds);
+    });
+    }  
+    </script>   
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC0K7590MmF2TcFY3QeguzJTR5bSH8_tW0&libraries=places&callback=initMap" async defer></script>
+    </body>
+</html>
+
+
+

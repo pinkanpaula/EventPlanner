@@ -1,0 +1,236 @@
+      .mp-form {
+	position: relative;
+        
+}
+
+/* Clearfix hack by Nicolas Gallagher: http://nicolasgallagher.com/micro-clearfix-hack/ */
+.mp-form:before, 
+.mp-form:after { 
+	content: " "; display: table; 
+}
+
+.mp-form:after { 
+	clear: both; 
+}
+
+.mp-column {
+	width: 33%;
+	padding: 10px 30px;
+	margin-left:400px;
+        margin-right: 100px;
+}
+
+.mp-form label {
+	display: block;
+	padding: 40px 5px 5px 2px;
+	font-size: 1.1em;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	cursor: pointer;
+}
+
+.mp-form input,
+.mp-form textarea,
+.mp-form select {
+	font-family: 'Lato', Calibri, Arial, sans-serif;
+	line-height: 1.5;
+	font-size: 1.4em;
+	padding: 5px 10px;
+	display: block;
+	width: 100%;
+	
+}
+
+.mp-form input,
+.mp-form textarea {
+	border: 3px solid ;
+}
+
+.mp-form textarea {
+	min-height: 200px;
+}
+
+.mp-form input:focus,
+.mp-form textarea:focus,
+.mp-form label:active + input,
+.mp-form label:active + textarea {
+	outline: none;
+	border: 3px solid #10689a;
+}
+
+.mp-form select:focus {
+	outline: none;
+}
+
+::-webkit-input-placeholder { /* WebKit browsers */
+    color: #10689a;
+    font-style: italic;
+}
+
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color: #10689a;
+    font-style: italic;
+}
+
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: #10689a;
+    font-style: italic;
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+    color: #10689a;
+    font-style: italic;
+}
+
+.cbp-mc-submit-wrap {
+	text-align: center;
+	padding-top: 40px;
+	clear: both;  
+}
+
+.mp-form input.cbp-mc-submit {
+	background: #10689a;
+	border: none;
+	color: #fff;
+	width: auto;
+	cursor: pointer;
+	text-transform: uppercase;
+	display: inline-block;
+	padding: 15px 20px;
+	font-size: 1.0em;
+	border-radius: 2px;
+	letter-spacing: 1px;
+
+}
+
+.mp-title{
+        background: #10689a;
+	border: none;
+	color: #fff;
+	width: auto;
+	cursor: pointer;
+	display: inline-block;
+	padding: 30px 60px;
+	font-size: 1.1em;
+        font-family: 'Lato', Calibri, Arial, sans-serif;
+	border-radius: 2px;
+	letter-spacing: 1px;
+        width: 33%;
+        margin-left:365px;
+        margin-right: 100px;
+}
+
+.mp-form input.cbp-mc-submit:hover {
+	background: #1478b1;
+}
+
+@media screen and (max-width: 70em) {
+	.mp-column {
+		width: 50%;
+	}
+	.mp-column:nth-child(3) {
+		width: 100%;
+	}
+}
+
+@media screen and (max-width: 48em) {
+	.mp-column {
+		width: 100%;
+		padding: 10px;
+	}        
+}
+
+.mp-title-eventname{
+ color: #87cefa;
+ margin-left:150px
+}
+
+.mp-title-header{
+ margin-left:150px;
+ font-size:larger;
+}
+
+.mp-form-error{
+	border: none;
+	color: #ff0000;
+	width: auto;
+	cursor: pointer;
+	display: inline-block;
+	padding: 30px 60px;
+	font-size: small;
+        font-family: 'Lato', Calibri, Arial, sans-serif;
+	border-radius: 2px;
+	letter-spacing: 1px;
+        width: 20%;
+        margin-left:500px;
+        margin-right: 100px;
+}
+
+input:invalid {
+  box-shadow: 0 0 5px 1px red;
+}
+
+input:focus:invalid {
+  outline: none;
+}
+
+
+#map {
+        width: 400px;
+        height: 200px;
+}
+#popup {
+            position: absolute;
+            background: #fff;
+            width: 450px;
+            height: 80px;
+            /*margin-left: -250px; Half the value of width to center div*/
+            /*margin-top: -250px; Half the value of height to center div*/
+            margin-left:-560px;
+            margin-right: -60px;
+            z-index: 200;
+            display: none;
+            font-size: small;
+            font-family: 'Lato', Calibri, Arial, sans-serif;
+            border: 3px solid #10689a;
+            
+}
+
+
+#dnote{
+  display: none;
+}
+
+#Note{
+  display: none;
+}
+
+.toolbar {
+    padding: 8px;
+    line-height: 1;
+    text-align: right;
+    overflow: hidden;
+} 
+.toolbar a.close {
+    margin-left:-400px;
+    margin-right: 100px;
+    display: inline-block;
+         zoom: 1;
+    padding: 0 8px;
+    font-size: 12px;
+    text-decoration: none;
+    font-weight: bold;
+    line-height: 18px;
+    border-radius: 5px;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        -o-border-radius: 5px;
+    color: #999999;
+    background-color: #515151;
+} .toolbar a.close span {
+    color: #818181;
+} .toolbar a.close:hover,
+  .toolbar a.close:hover span {
+    background-color: #b90900;
+    color: #fff;
+}

@@ -1,0 +1,75 @@
+<html>
+  <head>
+    <title></title>
+    <link rel="stylesheet" href="eventPlanner.css">
+<script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script> 
+<head>    
+    <body>
+       
+      <div class="mp-title">
+        <div class="mp-title-header">Event-Planner</div>
+        <p>
+        <div id="tEventTitle" class="mp-title-eventname">The Event</div>
+        <p>
+        <label for="What">About
+          <label id="teventDesc">Description</label>
+        </label>
+        <p>
+         <label for="Where">Venue
+          <label id="teventLoc">Description</label>
+        </label>
+        <p>
+         <label for="When">Date
+          <label id="teventTime">Description</label>
+        </label>
+         <p>
+        <label id="Note" for="Note">Note
+          <label id="dnote"></label>
+        </label>  
+      </div>
+      <form class="mp-form" >
+	<div class="mp-column">
+		<label for="first_name">Event Name</label>
+		<input type="text" required id="event_name" name="event_name" placeholder="Meetup">
+		<label for="last_name">Event Type</label>
+		<input list="eventTypeList" required id="event_type" name="event_type" placeholder="">
+                <datalist id="eventTypeList">
+                  <option value="Party">
+                  <option value="Meeting">
+                  <option value="Conference Talk">
+                  <option value="Sports Game">
+                </datalist>  
+		<label for="startTime">Start time</label>
+		<input type="time" required id="startTime" name="startTime">
+                <label for="endTime">End time</label>
+		<input type="time" required id="endtime" name="endtime">
+		<label for="Day">Day</label>
+		<input type="date" required id="eventDate" name="date" onchange="validate3(this);">
+                <div id="err3" class="mp-form-error"></div>  
+		<label for="eventDesc">Event Description</label>
+		<textarea id="eventDesc" name="eventDesc" onchange="validate2();"></textarea>
+                <div id="err1" class="mp-form-error"></div>
+                <label for="eventLoc">Location</label>
+		<input type="text" required id="eventLoc" placeholder="Upper East Avenue">
+                <div id="map"></div>  
+                <label for="email">Email</label>
+		<input type="text" required id="email" name="email" placeholder="jon@doe.com" onchange="validate1();">
+                <label for="notes">Notes</label>
+		<input type="text" id="notes" name="notes" placeholder="">  
+                <div id="err2" class="mp-form-error"></div>            
+	</div>
+	<div class="cbp-mc-submit-wrap"><input id="create" class="cbp-mc-submit"  value="Create event" /></div>
+        <div class="cbp-mc-submit-wrap"><input id="newAccount" class="cbp-mc-submit" onclick="window.location.href='eventPlannerReg.html'" value="Create account" /></div>	
+        <div id="err" class="mp-form-error"></div>
+        <div id="popup">
+        </div>
+</form>
+    <script type="text/javascript" src="eventPlanner.js"></script>
+     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC0K7590MmF2TcFY3QeguzJTR5bSH8_tW0&libraries=places&callback=initMap" async defer></script>
+     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+     <script type="text/javascript" src="moment.js"></script>
+    </body>
+</html>
+
+
+
