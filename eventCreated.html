@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script> 
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+		<title>Event-Planner</title>
+		<meta name="description" content="Event-Planner" />
+		<link rel="shortcut icon" href="../favicon.ico">
+		<link rel="stylesheet" type="text/css" href="css/default.css" />
+		<link rel="stylesheet" type="text/css" href="css/component.css" />
+		<script src="js/modernizr.custom.js"></script>
+	</head>
+	<body>
+		<div class="container">
+			<header class="clearfix">
+				<span>Event-Planner <span class="bp-icon bp-icon-about" data-content="Event-Planner is a web based planner for you to create an event"></span></span>
+				<h1>Create your event</h1>
+				<nav>
+					<a href="registration.html" class="bp-icon bp-icon-next" data-info="Sign up"><span>Sign up</span></a>
+					<a href="" class="bp-icon bp-icon-drop" data-info="Login"><span>Login</span></a>
+					<a href="http://tympanus.net/codrops/category/blueprints/" class="bp-icon bp-icon-archive" data-info="Blueprints archive"><span>Go to the archive</span></a>
+				</nav>
+			</header>	
+	<div class="main">
+	<form class="cbp-mc-form">
+            
+        <div class="mp-title">
+        <div class="mp-title-header">Event-Planner</div>
+        <p>
+        <div id="tEventTitle" class="mp-title-eventname">The Event</div>
+        <p>
+        <label for="What">About
+          <label id="teventDesc">Description</label>
+        </label>
+        <p>
+         <label for="Where">Venue
+          <label id="teventLoc">Description</label>
+        </label>
+        <p>
+         <label for="When">Date
+          <label id="teventTime">Description</label>
+        </label>
+         <p>
+        <label id="Note" for="Note">Note
+          <label id="dnote"></label>
+        </label>  
+      </div>
+            
+	<div class="cbp-mc-submit-wrap"><input id="create" class="cbp-mc-submit"  value="Create event" /></div>
+        <div class="cbp-mc-submit-wrap"><input id="newAccount" class="cbp-mc-submit" onclick="window.location.href='registration.html'" value="Create account" /></div>						
+	</form>
+	</div>
+	</div>
+	<script type="text/javascript" src="eventPlanner.js"></script>
+     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC0K7590MmF2TcFY3QeguzJTR5bSH8_tW0&libraries=places&callback=initMap" async defer></script>
+     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+     <script type="text/javascript" src="moment.js"></script>
+     <script>
+        var myDataRef = new Firebase('https://glowing-torch-6752.firebaseio.com/');
+        myDataRef.startAt().limit(1).once('child_added', function(snapshot) {
+            var message = snapshot.val();
+            displayData(message.eventLocation, message.eventDescription, message.eventTitle, message.eventDate, message.eventTime, message.eventNote);
+	});
+        
+    function displayData(eLocation,eDescription,eTitle,eDate,eTime,eNote){       
+        document.querySelector('#teventDesc').style.color="#87cefa";
+        document.querySelector('#teventLoc').style.color="#87cefa";
+        document.querySelector('#teventTime').style.color="#87cefa";
+	document.querySelector('#dnote').style.color="#87cefa";
+        
+        document.querySelector('#tEventTitle').innerText=eTitle;
+        document.querySelector('#teventDesc').innerText=eDescription;
+        document.querySelector('#teventLoc').innerText=eLocation;
+        document.querySelector('#teventTime').innerText=eTime;
+        document.querySelector('#teventDesc').innerText=eventDesc.value;
+        document.querySelector('#teventLoc').innerText=eventLoc.value;
+	if(eNote.value!==null){
+	  document.querySelector('#Note').style.display="inline-block";
+	  document.querySelector('#dnote').style.display="inline-block";
+	  document.querySelector('#dnote').innerHTML=eNote;
+	}
+     }
+     </script>
+	</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script> 
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+		<title>Event-Planner</title>
+		<meta name="description" content="Event-Planner" />
+		<link rel="shortcut icon" href="../favicon.ico">
+		<link rel="stylesheet" type="text/css" href="css/default.css" />
+		<link rel="stylesheet" type="text/css" href="css/component.css" />
+		<script src="js/modernizr.custom.js"></script>
+	</head>
+	<body>
+		<div class="container">
+			<header class="clearfix">
+				<span>Event-Planner <span class="bp-icon bp-icon-about" data-content="Event-Planner is a web based planner for you to create an event"></span></span>
+				<h1>Create your event</h1>
+				<nav>
+					<a href="registration.html" class="bp-icon bp-icon-next" data-info="Sign up"><span>Sign up</span></a>
+					<a href="" class="bp-icon bp-icon-drop" data-info="Login"><span>Login</span></a>
+					<a href="http://tympanus.net/codrops/category/blueprints/" class="bp-icon bp-icon-archive" data-info="Blueprints archive"><span>Go to the archive</span></a>
+				</nav>
+			</header>	
+			<div class="main">
+			<form class="cbp-mc-form">
+			<div class="cbp-mc-column">
+			<label for="first_name">Event Name</label>
+			<input type="text" required id="event_name" name="event_name" placeholder="Meetup">
+			<label for="last_name">Event Type</label>
+			<input list="eventTypeList" required id="event_type" name="event_type" placeholder="">
+			<datalist id="eventTypeList">
+			  <option value="Party">
+			  <option value="Meeting">
+			  <option value="Conference Talk">
+			  <option value="Sports Game">
+			</datalist>  
+			<label for="startTime">Start time</label>
+			<input type="time" required id="startTime" name="startTime">
+			<label for="endTime">End time</label>
+			<input type="time" required id="endtime" name="endtime">
+			<div id="err3" class="mp-form-error"></div>	
+			
+	  		</div>
+			
+			<div class="cbp-mc-column">
+			<label for="Day">Day</label>
+			
+			<input type="date" required id="eventDate" name="date" onchange="validate3(this);">
+			<div id="err1" class="mp-form-error"></div>	
+				
+			<label for="eventDesc">Event Description</label>
+			<textarea id="eventDesc" name="eventDesc" onchange="validate2();"></textarea>
+			<div id="err1" class="mp-form-error"></div>
+									
+			</div>
+			
+	  		<div class="cbp-mc-column">
+	  		<label for="eventLoc">Location</label>
+			<input type="text" required id="eventLoc" placeholder="Upper East Avenue" class="location">
+			<div id="map"></div>
+			<div id="err2" class="mp-form-error"></div> 
+			<label for="email">Email</label>
+			<input type="text" required id="email" name="email" placeholder="jon@doe.com" onchange="validate1();">
+			 	
+			<label for="notes">Notes</label>
+			<input type="text" id="notes" name="notes" placeholder="">  			
+	  		</div>
+	  				
+	<div class="cbp-mc-submit-wrap"><input id="create" class="cbp-mc-submit"  value="Create event" /></div>
+        <div class="cbp-mc-submit-wrap"><input id="newAccount" class="cbp-mc-submit" onclick="window.location.href='registration.html'" value="Create account" /></div>	
+        <div id="err" class="mp-form-error"></div>
+        <div id="popup">
+        </div>	
+					
+	</form>
+	</div>
+	</div>
+	<script type="text/javascript" src="eventPlanner.js"></script>
+	<script type="text/javascript" src="moment.js"></script>
+     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC0K7590MmF2TcFY3QeguzJTR5bSH8_tW0&libraries=places&callback=initMap" async defer></script>
+     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+   
+	</body>
+</html>

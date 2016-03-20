@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script> 
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+		<title>Event-Planner</title>
+		<meta name="description" content="Event-Planner" />
+		<meta name="keywords" content="responsive form, inputs, html5, responsive, multi-column, fluid, media query, template" />
+		<meta name="author" content="Codrops" />
+		<link rel="shortcut icon" href="../favicon.ico">
+		<link rel="stylesheet" type="text/css" href="css/default.css" />
+		<link rel="stylesheet" type="text/css" href="css/component.css" />
+		<script src="js/modernizr.custom.js"></script>
+		<script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script> 
+	</head>
+	<body>
+		<div class="container">
+			<header class="clearfix">
+				<span>Event-Planner <span class="bp-icon bp-icon-about" data-content="Event-Planner is a web based planner for you to create an event"></span></span>
+				<h1>Registration</h1>
+				<nav>
+					<a href="http://tympanus.net/Blueprints/TooltipMenu/" class="bp-icon bp-icon-prev" data-info="previous Blueprint"><span>Previous Blueprint</span></a>
+					<a href="http://tympanus.net/Blueprints/AnimatedHeader/" class="bp-icon bp-icon-next" data-info="next Blueprint"><span>Next Blueprint</span></a>
+					<a href="http://tympanus.net/codrops/?p=15320" class="bp-icon bp-icon-drop" data-info="back to the Codrops article"><span>back to the Codrops article</span></a>
+					<a href="http://tympanus.net/codrops/category/blueprints/" class="bp-icon bp-icon-archive" data-info="Blueprints archive"><span>Go to the archive</span></a>
+				</nav>
+			</header>	
+			<div class="main">
+			<form class="cbp-mc-form">
+			<div class="cbp-mc-column">
+				<label for="first_name">First Name</label>
+				<input type="text" required id="fname" name="event_name" placeholder="John">
+				<label for="last_name">Last Name</label>
+				<input type="text" required id="lname" name="event_type" placeholder="Doe">
+				<label for="Day">Birth date</label>
+				<input type="date" required id="birthDate" name="date" >
+				<label for="email">Email</label> 
+				<input type="email" required id="email" name="email" placeholder="jon@doe.com" onchange="validateEmail3();">
+				<div id="err1" class="mp-form-error"></div>  	
+
+	  		</div>
+
+			<div class="cbp-mc-column">
+	
+				  <label for="firstPassword">Password</label>
+				<input type="password" required id="firstPassword" name="email" placeholder="" onchange="validatePassword1();">
+				<div id="err2" class="mp-form-error"></div>
+				<label for="firstPassword">Repeat Password</label>
+				<input type="password" required id="secondPassword" name="email" placeholder="" onchange="validatePassword2();">
+				<div id="err3" class="mp-form-error"></div> 
+									
+			</div>
+			
+			<div class="cbp-mc-column">
+				<label for="drink">Favorite Drink</label>
+				<input type="text" id="occupation" name="drink" placeholder="Green Tea">
+				
+				<label for="comments">Comments</label>
+				<textarea id="comments" name="comments"></textarea>
+			</div>	
+					
+	  				
+	<div class="cbp-mc-submit-wrap"><input id="register" class="cbp-mc-submit"  value="Register" /></div>
+        <div class="cbp-mc-submit-wrap"><input id="cancel" class="cbp-mc-submit" onclick="window.location.href='eventPlanner.html'" value="Create event" /></div>	
+
+	<div id="popup">
+        </div>						
+	</form>
+	</div>
+	</div>
+<script>
+     var regData = new Firebase('https://glowing-torch-6752.firebaseio.com/');	
+     var register=document.querySelector('#register');
+     var email=document.querySelector('#email');
+     var firstPassword=document.querySelector('#firstPassword');
+     var secondPassword=document.querySelector('#secondPassword');
+     var firstName=document.querySelector('#fname');
+     var lastName=document.querySelector('#lname');
+     var birthDate=document.querySelector('#birthDate');
+     var occupation=document.querySelector('#occupation');
+     var comments=document.querySelector('#comments');
+     
+     var passwordRgx=/^(?=.{8,})(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*\W).*$/g;
+     var emailRegex=/([^@]+)@([^\.]+)\.([^\.]+)/g;
+     var numRegex=/([0-9])/g;
+     
+     register.onclick=function(){
+       saveData();
+       return false;
+     };
+     
+        function validatePassword1(){                
+               if(passwordRgx.test(firstPassword.value)){
+                   firstPassword.setCustomValidity("");                  
+               }
+               else{
+                   firstPassword.setCustomValidity("password format incorrect");
+               }
+                displayErr();
+               
+        }
+	
+	function saveData(){
+		regData.push({firstname:firstName.value,lastname:lastName.value,bdate:birthDate.value,emailAdd:email.value,password:firstPassword.value,occupation:occupation.value});
+		regData.once('child_added', function(snapshot) {
+		displaySuccess();
+	});
+	}
+        
+        function validatePassword2(){
+              if(firstPassword.value===secondPassword.value){
+                   secondPassword.setCustomValidity("");
+               }
+               else{
+                   secondPassword.setCustomValidity("second password must match the first one");
+               }
+               displayErr();
+        }
+        
+        function validateEmail3(){
+              if(emailRegex.test(email.value)){
+                   email.setCustomValidity("");                  
+               }
+               else{
+                   email.setCustomValidity("email format incorrect");
+               }
+                displayErr();
+        }
+     
+     function displayErr(){
+        document.querySelector('#err1').innerHTML=email.validationMessage;
+	document.querySelector('#err2').innerHTML=firstPassword.validationMessage;
+	document.querySelector('#err3').innerHTML=secondPassword.validationMessage;
+      }
+      
+     function displaySuccess(){
+        document.querySelector('#popup').innerHTML="<div class='toolbar'><a class='close' onclick='closePopup()'>close</a></div><p><div align='center'>Your registration details are submitted, you will receive our email shortly</div>";	
+        document.querySelector('#popup').style.display="inline-block";
+	document.querySelector('#popupclose').innerHTML="X";
+      }
+      
+      function closePopup(){
+	document.querySelector('#popup').style.display='none';
+        document.querySelector('#popupclose').style.display='none';    
+      }  
+      
+    function initMap() {
+        var mapDiv = document.getElementById('map');
+        var map = new google.maps.Map(mapDiv, {
+          center: {lat: 44.540, lng: -78.546},
+          zoom: 8,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        });
+        var searchBox=new google.maps.places.SearchBox(eventLoc);
+        map.controls[google.maps.ControlPosition.TOP_LEFT].push(eventLoc);       
+        map.addListener('bounds_changed', function() {
+        searchBox.setBounds(map.getBounds());        
+        });
+        var markers = [];
+
+    searchBox.addListener('places_changed', function() {
+    var places = searchBox.getPlaces();
+    if (places.length == 0) {
+      return;
+    }
+    markers.forEach(function(marker) {
+      marker.setMap(null);
+    });
+    markers = [];
+
+    var bounds = new google.maps.LatLngBounds();
+    places.forEach(function(place) {
+      var icon = {
+        url: place.icon,
+        size: new google.maps.Size(71, 71),
+        origin: new google.maps.Point(0, 0),
+        anchor: new google.maps.Point(17, 34),
+        scaledSize: new google.maps.Size(25, 25)
+      };
+      markers.push(new google.maps.Marker({
+        map: map,
+        icon: icon,
+        title: place.name,
+        position: place.geometry.location
+      }));
+      if (place.geometry.viewport) {
+        // Only geocodes have viewport.
+        bounds.union(place.geometry.viewport);
+      } else {
+        bounds.extend(place.geometry.location);
+      }
+    });
+      map.fitBounds(bounds);
+    });
+    }  
+    </script>   
+     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC0K7590MmF2TcFY3QeguzJTR5bSH8_tW0&libraries=places&callback=initMap" async defer></script>
+     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+     <script type="text/javascript" src="moment.js"></script>
+	</body>
+</html>
