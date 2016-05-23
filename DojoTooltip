@@ -1,0 +1,11 @@
+function mouseOverFunction(obj)
+{
+  require(["dijit/Tooltip", "dojo/dom", "dojo/on", "dojo/mouse", "dojo/domReady!"], function(Tooltip, dom, on, mouse){
+  var node = dom.byId(obj.id);
+  //var node=obj.id;
+  Tooltip.show("I am a tooltip", node);
+  on.once(node, mouse.leave, function(){
+      Tooltip.hide(node);
+  })
+})								
+}
