@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<head>
+	
+		<meta charset="UTF-8" http-equiv="X-UA-Compatible" content="IE=Edge">
+		<meta http-equiv="pragma" content="no-cache">
+		<meta http-equiv="cache-control" content="no-cache">
+		<meta http-equiv="expires" content="0">   
+		<title>Rules Engine DEMO</title>
+	
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="./bootstrap-3.3.6-dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="./bootstrap-3.3.6-dist/css/bootstrap-theme.min.css">
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+
+<style type="text/css">
+ .mflag{
+ color:red;
+  padding-left:2px; 
+ }
+.modal {
+    display:    none;
+    position:   fixed;
+    z-index:    1000;
+    top:        0;
+    left:       0;
+    height:     100%;
+    width:      100%;
+    background: rgba( 255, 255, 255, .8 ) 
+                url('http://i.stack.imgur.com/FhHRx.gif') 
+                50% 50% 
+                no-repeat;
+}
+
+body.loading {
+    overflow: hidden;   
+}
+
+body.loading .modal {
+    display: block;
+}
+</style>
+
+</head>
+<body>
+<div class="panel panel-default">
+	<div class="panel-heading">
+	<h4>Security Detail Panel</h4>
+	</div>
+	<div class="panel-body panel-default">
+		 <form name="formFacilityDetail" action="" method="post">
+
+			
+	<div class="panel-heading">
+	</div>			
+			<table border="0">
+				<tr>
+					<td>Market Value<span class="mflag" id="marketValue_mandatory" style="visibility:hidden;">*</span></td>
+					<td>&nbsp;</td>
+					<td><input type="text" id="marketValue" name="MarketValue"  onchange="">&nbsp;(in Millions)</td>
+					<td><font color="red"><span id="marketValueMessage"></span></font></td>
+				</tr>
+			</table>
+			<br>
+			<hr>
+			<p align="center">
+			<input type="button" value="Initialize" name="Submit" onclick="onLoadClick()">	
+			<input type="button" value="Save" name="Submit" onclick="onSubmitClick()">	
+			</p>
+		</form>
+	</div>
+</div>
+<script>
+
+var site = "";
+var Bank = "";
+
+$body = $("body");
+
+
+/*******************************************Doucument.ready**********************************/
+
+/* $(document).on({
+    ajaxStart: function() { $body.addClass("loading");},
+    ajaxStop: function() { $body.removeClass("loading"); }    
+});
+ */
+
+
+$(document).ajaxStart(function(){
+	$body.addClass("loading");
+}); 
+
+$(document).ajaxStop(function(){
+	$body.removeClass("loading");
+});
+
+
+</script>
+<div class="modal"><!-- Place at bottom of page --></div>
+</body>
+</html>
